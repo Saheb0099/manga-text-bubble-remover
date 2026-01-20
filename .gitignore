@@ -1,0 +1,20 @@
+# Python junk
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment (Don't upload this!)
+venv/
+.env
+
+# Mac system files
+.DS_Store
+
+# Large AI Models (Download these manually, don't upload to GitHub)
+data/models/
+output/
+
+
+# IDE settings
+.vscode/
+.idea/
