@@ -1,3 +1,5 @@
+
+```
 # Manga Bubble Remover 💬✂️
 
 An automated AI tool to remove speech bubbles, narration boxes, and floating text from manga and webtoon pages.
@@ -17,12 +19,11 @@ This tool uses a **Two-Stage Pipeline** to ensure high-quality cleaning:
 ## 📥 Installation
 
 1. **Clone the repository:**
-   **Bash**
-
-   ```
-   git clone https://github.com/Saheb0099/manga-text-bubble-remover.git
+   ```bash
+   git clone [https://github.com/Saheb0099/manga-text-bubble-remover.git](https://github.com/Saheb0099/manga-text-bubble-remover.git)
    cd manga-text-bubble-remover
-   ```
+```
+
 2. Install dependencies:
    It is recommended to use a virtual environment (venv).
    **Bash**
@@ -33,7 +34,7 @@ This tool uses a **Two-Stage Pipeline** to ensure high-quality cleaning:
 3. ⬇️ Download the AI Models (REQUIRED)
    The model files are too large for GitHub, so they must be downloaded separately.
 
-   > **[Download the `data.zip` file here] https://drive.google.com/file/d/1-TvWff3aQW5uedCZr5SiZrLn6XiRIxcp/view?usp=sharing**
+   > [Download the `data.zip` file here](https://drive.google.com/file/d/1-TvWff3aQW5uedCZr5SiZrLn6XiRIxcp/view?usp=sharing&authuser=8)
    >
 
    * Download the zip file.
@@ -48,7 +49,8 @@ This tool uses a **Two-Stage Pipeline** to ensure high-quality cleaning:
      │       ├── adetailerForTextSpeech_v20/
      │       └── yolov8m_seg-speech-bubble/
      ├── main.py
-     ├── step1_bubbles.py
+     ├── rm_speech_bubbles.py
+     ├── rm_text.py
      └── ...
      ```
 
@@ -90,10 +92,10 @@ The tool will create two folders:
 
 This tool runs two distinct scripts in sequence:
 
-| **Stage** | **Script**     | **Model Used**      | **Goal**                                                                                                                                             |
-| --------------- | -------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1**     | `step1_bubbles.py` | **Model 0**(Shapes) | Aggressively removes white shapes, speech bubbles, and square narration boxes. Uses a low detection threshold (0.05) to catch boxes hidden in speed lines. |
-| **2**     | `step2_text.py`    | **Model 1**(Text)   | Scans the cleaned images from Stage 1 and removes any remaining floating English text or sound effects using a standard threshold (0.2).                   |
+| **Stage** | **Script**         | **Model Used**      | **Goal**                                                                                                                                             |
+| --------------- | ------------------------ | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1**     | `rm_speech_bubbles.py` | **Model 0**(Shapes) | Aggressively removes white shapes, speech bubbles, and square narration boxes. Uses a low detection threshold (0.05) to catch boxes hidden in speed lines. |
+| **2**     | `rm_text.py`           | **Model 1**(Text)   | Scans the cleaned images from Stage 1 and removes any remaining floating English text or sound effects using a standard threshold (0.2).                   |
 
 ## 🔧 Configuration
 
@@ -109,9 +111,12 @@ STAGE_1_THRESHOLD = 0.05  # Lower = More aggressive (removes more boxes)
 STAGE_2_THRESHOLD = 0.2   # Higher = stricter (only removes obvious text)
 ```
 
-
 ## 🙏 Credits & Acknowledgements
 
 This project is built upon the amazing work from:
 
-* **[speech_bubble_remove_and_copy](https://github.com/s9roll7/speech_bubble_remove_and_copy)** by **s9roll7** - Used for the core bubble detection and inpainting logic.
+* [speech_bubble_remove_and_copy](https://github.com/s9roll7/speech_bubble_remove_and_copy) by **s9roll7** - Used for the core bubble detection and inpainting logic.
+
+## 📝 License
+
+[MIT License](https://www.google.com/search?q=LICENSE&authuser=8)
