@@ -1,4 +1,3 @@
-
 # Manga Bubble Remover 💬✂️
 
 An automated AI tool to remove speech bubbles, narration boxes, and floating text from manga and webtoon pages.
@@ -110,6 +109,9 @@ STAGE_1_THRESHOLD = 0.05  # Lower = More aggressive (removes more boxes)
 STAGE_2_THRESHOLD = 0.2   # Higher = stricter (only removes obvious text)
 ```
 
-## 📝 License
 
-[MIT License](https://www.google.com/search?q=LICENSE&authuser=8)
+## 🙏 Credits & Acknowledgements
+
+This project is built upon the amazing work from:
+
+* **[speech_bubble_remove_and_copy](https://github.com/s9roll7/speech_bubble_remove_and_copy)** by **s9roll7** - Used for the core bubble detection and inpainting logic.
