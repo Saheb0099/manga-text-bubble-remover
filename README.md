@@ -167,9 +167,6 @@ This project is built upon the amazing work from:
 
 * **[speech_bubble_remove_and_copy](https://github.com/s9roll7/speech_bubble_remove_and_copy)** by **s9roll7** - Used for the core bubble detection and inpainting logic.
 
-## 📝 License
 
-[MIT License](https://www.google.com/search?q=LICENSE)
 
-```
 
