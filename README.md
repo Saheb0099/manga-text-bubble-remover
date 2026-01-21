@@ -1,7 +1,7 @@
 
-# Manga Bubble Remover 💬✂️ (Works best on Colored Manga)
+# Manga Bubble Remover 💬✂️ 
 
-> **🎨 Related Project:** check out my [Coloring-the-manga](https://github.com/Saheb0099/Coloring-the-manga) repository to automatically colorize your cleaned pages!
+> **🎨 (Works best on Colored Manga in my Test) Related Project:** check out my [Coloring-the-manga](https://github.com/Saheb0099/Coloring-the-manga) repository to automatically colorize your cleaned pages!
 
 An automated AI tool to remove speech bubbles, narration boxes, and floating text from manga and webtoon pages.
 
