@@ -19,7 +19,7 @@ This tool uses a **Two-Stage Pipeline** to ensure high-quality cleaning:
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/Saheb0099/manga-text-bubble-remover.git](https://github.com/Saheb0099/manga-text-bubble-remover.git)
+git clone https://github.com/Saheb0099/manga-text-bubble-remover.git
 cd manga-text-bubble-remover
 
 ```
@@ -59,7 +59,7 @@ pip install torch torchvision torchaudio
 
 * **For Windows (NVIDIA GPU - CUDA 12.1):**
 ```bash
-pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu121](https://download.pytorch.org/whl/cu121)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 ```
 
