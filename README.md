@@ -1,61 +1,98 @@
+
 # Manga Bubble Remover 💬✂️
 
-An automated AI tool to remove **speech bubbles, narration boxes, and floating text** from manga and webtoon pages using a **two-stage AI pipeline**.
+An automated AI tool to remove speech bubbles, narration boxes, and floating text from manga and webtoon pages.
 
----
+This tool uses a **Two-Stage Pipeline** to ensure high-quality cleaning:
+
+1. **Stage 1 (Heavy Lifter):** Removes solid speech bubbles and square narration boxes.
+2. **Stage 2 (Detailer):** Hunts down and removes leftover floating text and sound effects.
 
 ## 🚀 Features
 
-- **Two-Stage AI Cleaning**
-  - Stage 1 removes speech bubbles and narration boxes
-  - Stage 2 removes remaining floating text and sound effects
-
-- **GPU Accelerated**
-  - Apple Silicon (MPS)
-  - NVIDIA GPUs (CUDA)
-
-- **Batch Processing**
-  - Process entire manga volumes or hundreds of chapters automatically
-
-- **Fail-Safe Execution**
-  - Pipeline stops immediately if any stage fails
-
----
+* **Two-Stage Cleaning:** Separates bubble removal from text removal for maximum precision.
+* **GPU Accelerated:** Optimized for Mac Silicon (MPS) and NVIDIA (CUDA) for fast processing.
+* **Batch Processing:** Can process hundreds of chapters automatically.
+* **Fail-Safe:** Automatically stops if a stage fails to prevent data corruption.
 
 ## 📥 Installation
 
-### 1️⃣ Clone the Repository
-
+### 1. Clone the repository
 ```bash
-git clone https://github.com/Saheb0099/manga-text-bubble-remover.git
+git clone [https://github.com/Saheb0099/manga-text-bubble-remover.git](https://github.com/Saheb0099/manga-text-bubble-remover.git)
 cd manga-text-bubble-remover
+
 ```
 
----
+### 2. Set up the Environment (Recommended)
 
-### 2️⃣ Install Dependencies
+It is highly recommended to use a virtual environment (`venv`) to avoid conflicts.
 
-It is recommended to use a virtual environment.
+**For Mac / Linux:**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+
+```
+
+**For Windows:**
+
+```bash
+py -3.10 -m venv venv
+venv\Scripts\activate
+
+```
+
+### 3. Install PyTorch
+
+You must install the correct version of PyTorch for your hardware (NVIDIA CUDA or Mac MPS) **before** installing other dependencies.
+
+* **Visit the official guide:** [https://pytorch.org/get-started/locally/](https://pytorch.org/get-started/locally/)
+* **Or use one of these common commands:**
+* **For Mac (M1/M2/M3 Chips):**
+```bash
+pip install torch torchvision torchaudio
+
+```
+
+
+* **For Windows (NVIDIA GPU - CUDA 12.1):**
+```bash
+pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu121](https://download.pytorch.org/whl/cu121)
+
+```
+
+
+* **For CPU Only (Slow):**
+```bash
+pip install torch torchvision torchaudio
+
+```
+
+
+
+
+
+### 4. Install Dependencies
+
+Once PyTorch is installed, install the rest of the required libraries:
 
 ```bash
 pip install -r requirements.txt
+
 ```
 
----
+### 5. ⬇️ Download the AI Models (REQUIRED)
 
-### 3️⃣ Download AI Models (Required)
+The model files are too large for GitHub, so they must be downloaded separately.
 
-Due to GitHub size limits, models must be downloaded separately.
+> **[Download the `data.zip` file here](https://drive.google.com/file/d/1-TvWff3aQW5uedCZr5SiZrLn6XiRIxcp/view?usp=sharing)**
 
-**Download link:**  
-https://drive.google.com/file/d/1-TvWff3aQW5uedCZr5SiZrLn6XiRIxcp/view
-
-**Steps:**
-1. Download `data.zip`
-2. Extract it into the project root
-3. Verify the folder structure:
-
-```plaintext
+* Download the zip file.
+* Extract it inside the project folder.
+* Your folder structure must look **exactly** like this:
+```text
 manga-text-bubble-remover/
 ├── data/
 │   └── models/
@@ -65,71 +102,74 @@ manga-text-bubble-remover/
 ├── rm_speech_bubbles.py
 ├── rm_text.py
 └── ...
+
 ```
 
----
+
 
 ## 🛠️ Usage
 
-### 1️⃣ Prepare Input Files
+### 1. Prepare your files
 
-Create an `input_manga` directory and place chapter folders inside it:
+Create a folder named `input_manga` and place your chapter folders inside it:
 
-```plaintext
+```text
 input_manga/
 ├── Chapter 101/
 │   ├── 01.jpg
 │   └── 02.jpg
 └── Chapter 102/
     └── ...
+
 ```
 
----
+### 2. Run the tool
 
-### 2️⃣ Run the Pipeline
+Run the master script to start the pipeline:
 
 ```bash
 python main.py
+
 ```
 
----
+### 3. Get results
 
-### 3️⃣ Output
+The tool will create two folders:
 
-- `temp_stage1/` — Intermediate results (bubbles removed, text remains)
-- `output_manga/` — ✅ Final cleaned images
+* `temp_stage1/`: Intermediate files (Bubbles removed, text remains).
+* `output_manga/`: **Final Results** (Clean images).
 
----
+## ⚙️ How It Works (The Pipeline)
 
-## ⚙️ Pipeline Overview
+This tool runs two distinct scripts in sequence:
 
-| Stage | Script | Model | Description |
-|------|-------|------|-------------|
-| **1** | `rm_speech_bubbles.py` | Shapes Model | Aggressively removes speech bubbles and narration boxes using a low threshold (0.05). |
-| **2** | `rm_text.py` | Text Model | Removes remaining floating English text and sound effects using a stricter threshold (0.2). |
-
----
+| Stage | Script | Model Used | Goal |
+| --- | --- | --- | --- |
+| **1** | `rm_speech_bubbles.py` | **Model 0** (Shapes) | Aggressively removes white shapes, speech bubbles, and square narration boxes. Uses a low detection threshold (0.05) to catch boxes hidden in speed lines. |
+| **2** | `rm_text.py` | **Model 1** (Text) | Scans the cleaned images from Stage 1 and removes any remaining floating English text or sound effects using a standard threshold (0.2). |
 
 ## 🔧 Configuration
 
-Adjust AI sensitivity in `main.py`:
+You can adjust the sensitivity of the AI by editing the settings at the top of `main.py`:
 
 ```python
-# Stage 1 - Speech Bubbles
-STAGE_1_THRESHOLD = 0.05  # Lower = more aggressive
+# STAGE 1 (Bubbles)
+STAGE_1_THRESHOLD = 0.05  # Lower = More aggressive (removes more boxes)
 
-# Stage 2 - Text
-STAGE_2_THRESHOLD = 0.2   # Higher = stricter text detection
+# STAGE 2 (Text)
+STAGE_2_THRESHOLD = 0.2   # Higher = stricter (only removes obvious text)
+
 ```
-
----
 
 ## 🙏 Credits & Acknowledgements
 
-This project is built upon:
+This project is built upon the amazing work from:
 
-- **speech_bubble_remove_and_copy**  
-  https://github.com/s9roll7/speech_bubble_remove_and_copy  
-  By **s9roll7** — core bubble detection and inpainting logic
+* **[speech_bubble_remove_and_copy](https://github.com/s9roll7/speech_bubble_remove_and_copy)** by **s9roll7** - Used for the core bubble detection and inpainting logic.
 
+## 📝 License
+
+[MIT License](https://www.google.com/search?q=LICENSE)
+
+```
 
