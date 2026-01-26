@@ -18,3 +18,8 @@ output/
 # IDE settings
 .vscode/
 .idea/
+
+# Users assets Folder
+input_manga/
+temp_stage1/
+output_manga/

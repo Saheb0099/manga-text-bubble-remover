@@ -225,6 +225,15 @@ def detect_bubble(src_list, mask_path:Path, model_type, detection_th, classifica
                 result_array = np.zeros((org_size[1],org_size[0]), np.uint8)
 
             Image.fromarray( result_array ).save(result_path)
+
+
+        # --- UNIVERSAL MEMORY HYGIENE (CUDA & MPS) ---
+        results = None  # Shreds the YOLO result data
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()    # For NVIDIA GPUs
+        elif torch.backends.mps.is_available():
+            torch.mps.empty_cache()     # For Mac M4
+        # ---------------------------------------------
             
 
         if False:
@@ -283,6 +292,14 @@ def lama_inpaint(src_list, mask_list, output_path:Path):
 
         result = simple_lama(image, mask)
         result.save(result_path)
+
+        image = None   # Shreds image reference
+        mask = None    # Shreds mask reference
+        result = None  # Shreds result reference
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()    # For NVIDIA
+        elif torch.backends.mps.is_available():
+            torch.mps.empty_cache()     # For Mac M4
     
     simple_lama.model.to("cpu")
 
@@ -444,7 +461,6 @@ def copy_bubble(src_path:Path, base_path:Path, mask_input_path:Path, create_mask
     mask_list = [ (mask_input_path/Path(s.name)).with_suffix(".png") for s in base_list if (mask_input_path/Path(s.name)).with_suffix(".png").is_file() ]
 
     blend_image(src_list, mask_list, base_list, with_bubble_img_output_path, blend_method)
-
 
 
 def split_panel(src_path:Path, split_output_path:Path, output_size):

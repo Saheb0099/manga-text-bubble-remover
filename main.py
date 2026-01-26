@@ -19,7 +19,7 @@ def run_script(script_name):
         sys.exit(1) # Stop everything if step 1 fails
 
 def main():
-    total_start = time.time()
+    start_time = time.time()
     
     # 1. Run The Heavy Lifter (Removes Boxes/Bubbles)
     run_script("rm_speech_bubbles.py")
@@ -28,9 +28,13 @@ def main():
     # This will pick up files from 'temp_stage1' automatically
     run_script("rm_text.py")
 
-    elapsed = time.time() - total_start
+    total_seconds = time.time() - start_time
+    minutes = int(total_seconds // 60)
+    seconds = int(total_seconds % 60)
+    
     print("\n" + "#"*50)
-    print(f"🎉 PIPELINE COMPLETE in {elapsed:.2f} seconds.")
+    print(f"🎉 PIPELINE COMPLETE!")
+    print(f"⏱️ Total Time Taken: {minutes} minutes and {seconds} seconds")
     print("#"*50)
 
 if __name__ == "__main__":
